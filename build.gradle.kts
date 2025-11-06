@@ -33,7 +33,13 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
-    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-data-generation-api-v1")
+    fapi(
+        "fabric-lifecycle-events-v1",
+        "fabric-resource-loader-v0",
+        "fabric-content-registries-v0",
+        "fabric-data-generation-api-v1",
+        "fabric-gametest-api-v1"
+    )
 
     testImplementation("net.fabricmc:fabric-loader-junit:${property("deps.fabric_loader")}")
 }
@@ -102,6 +108,12 @@ tasks {
 fabricApi {
     configureDataGeneration {
         client = true
+    }
+
+    configureTests {
+        createSourceSet = true
+        modId = "${project.property("mod.id")}-test"
+        eula = true
     }
 }
 

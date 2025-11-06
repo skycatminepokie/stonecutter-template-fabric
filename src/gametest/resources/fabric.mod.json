@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}-test",
+  "version": "${version}",
+  "name": "${name}",
+  "icon": "assets/template/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.example.TemplateGameTest"
+    ]
+  }
+}
