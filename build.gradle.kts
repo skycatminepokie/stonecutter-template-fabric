@@ -34,6 +34,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
     fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-data-generation-api-v1")
+
+    testImplementation("net.fabricmc:fabric-loader-junit:${property("deps.fabric_loader")}")
 }
 
 loom {
@@ -73,12 +75,16 @@ tasks {
         inputs.property("name", project.property("mod.name"))
         inputs.property("version", project.property("mod.version"))
         inputs.property("minecraft", project.property("mod.mc_dep"))
+        inputs.property("fabric_loader", project.property("deps.fabric_loader"))
+        inputs.property("java", if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17")
 
         val props = mapOf(
             "id" to project.property("mod.id"),
             "name" to project.property("mod.id"),
             "version" to project.property("mod.id"),
-            "minecraft" to project.property("mod.mc_dep")
+            "minecraft" to project.property("mod.mc_dep"),
+            "fabric_loader" to project.property("deps.fabric_loader"),
+            "java" to if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17"
         )
 
         filesMatching("fabric.mod.json") { expand(props) }
@@ -97,6 +103,10 @@ fabricApi {
     configureDataGeneration {
         client = true
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 /*
