@@ -1,4 +1,4 @@
-package com.example;
+package com.skycatdev;
 
 import net.fabricmc.fabric.api.gametest.v1.CustomTestMethodInvoker;
 import net.minecraft.gametest.framework.GameTestHelper;

@@ -16,13 +16,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.TemplateMod"
+      "com.skycatdev.TemplateMod"
     ],
     "client": [
-      "com.example.TemplateModClient"
+      "com.skycatdev.TemplateModClient"
     ],
     "fabric-datagen": [
-      "com.example.datagen.TemplateModDataGenerator"
+      "com.skycatdev.datagen.TemplateModDataGenerator"
     ]
   },
   "mixins": [

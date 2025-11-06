@@ -1,4 +1,4 @@
-package com.example;
+package com.skycatdev;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 /*
     TODO:
-     - Update package names
+     - Update package names (don't forget mixins.json)
         - client source set
         - gametest source set
         - main source set
