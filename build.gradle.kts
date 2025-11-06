@@ -33,7 +33,7 @@ dependencies {
     mappings("net.fabricmc:yarn:${property("deps.yarn")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
-    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0")
+    fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0", "fabric-data-generation-api-v1")
 }
 
 loom {
@@ -90,6 +90,12 @@ tasks {
         from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
+    }
+}
+
+fabricApi {
+    configureDataGeneration {
+        client = true
     }
 }
 

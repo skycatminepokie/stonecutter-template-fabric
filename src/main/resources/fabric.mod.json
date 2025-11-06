@@ -20,6 +20,9 @@
     ],
     "client": [
       "com.example.TemplateModClient"
+    ],
+    "fabric-datagen": [
+      "com.example.datagen.TemplateModDataGenerator"
     ]
   },
   "mixins": [
