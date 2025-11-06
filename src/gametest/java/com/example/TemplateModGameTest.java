@@ -5,7 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 import java.lang.reflect.Method;
 
-public class TemplateGameTest implements CustomTestMethodInvoker {
+public class TemplateModGameTest implements CustomTestMethodInvoker {
 
     @Override
     public void invokeTestMethod(GameTestHelper gameTestHelper, Method method) throws ReflectiveOperationException {

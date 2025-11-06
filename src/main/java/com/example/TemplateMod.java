@@ -5,6 +5,39 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+    TODO:
+     - Update package names
+        - client source set
+        - gametest source set
+        - main source set
+        - test source set
+     - Add an icon
+        - gametest source set
+        - main source set
+     - Update fabric.mod.json
+        - Description
+        - Authors
+        - Contact
+        - License
+     - Create your versions (see settings.gradle.kts and the versions folder)
+     - Update gradle.properties
+        - mod version
+        - mod group
+        - mod id
+        - mod name
+      - Check dependencies
+        - Loom in gradle.properties
+        - Everything else in versions/.../gradle.properties (normally no need for the template ones)
+      - Change MOD_ID in TemplateMod
+      - Update class names
+        - client/.../datagen/TemplateModDataGenerator
+        - client/.../TemplateModClient
+        - gametest/.../TemplateModGameTest
+        - main/.../TemplateMod
+      - Update LICENSE
+ */
+
 public class TemplateMod implements ModInitializer {
     public static final String MOD_ID = "template";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

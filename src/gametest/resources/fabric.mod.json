@@ -7,7 +7,7 @@
   "environment": "*",
   "entrypoints": {
     "fabric-gametest": [
-      "com.example.TemplateGameTest"
+      "com.example.TemplateModGameTest"
     ]
   }
 }

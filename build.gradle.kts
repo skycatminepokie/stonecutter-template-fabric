@@ -110,6 +110,7 @@ fabricApi {
         client = true
     }
 
+    @Suppress("UnstableApiUsage")
     configureTests {
         createSourceSet = true
         modId = "${project.property("mod.id")}-test"
