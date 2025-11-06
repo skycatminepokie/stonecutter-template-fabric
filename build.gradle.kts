@@ -42,6 +42,11 @@ dependencies {
     )
 
     testImplementation("net.fabricmc:fabric-loader-junit:${property("deps.fabric_loader")}")
+
+    "org.jspecify:jspecify:${property("deps.jspecify")}".let {
+        compileOnly(it)
+        testCompileOnly(it)
+    }
 }
 
 loom {
