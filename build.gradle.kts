@@ -50,7 +50,7 @@ loom {
 
 java {
     withSourcesJar()
-    val requiresJava21: Boolean = stonecutter.eval(stonecutter.current.version, ">=1.20.6")
+    val requiresJava21: Boolean = stonecutter.eval(stonecutter.current.version, ">=1.20.5")
     val javaVersion: JavaVersion =
         if (requiresJava21) JavaVersion.VERSION_21
         else JavaVersion.VERSION_17
