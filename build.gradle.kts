@@ -47,6 +47,8 @@ dependencies {
         compileOnly(it)
         testCompileOnly(it)
     }
+    testImplementation("org.mockito:mockito-core:${property("deps.mockito")}")
+    testImplementation("org.assertj:assertj-core:${property("deps.assertj")}")
 }
 
 loom {
