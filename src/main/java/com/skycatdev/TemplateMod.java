@@ -17,13 +17,11 @@ import org.slf4j.LoggerFactory;
         - main source set
      - Update fabric.mod.json
         - Description
-        - Authors
         - Contact
         - License
      - Create your versions (see settings.gradle.kts and the versions folder)
      - Update gradle.properties
         - mod version
-        - mod group
         - mod id
         - mod name
       - Check dependencies
@@ -35,7 +33,7 @@ import org.slf4j.LoggerFactory;
         - client/.../TemplateModClient
         - gametest/.../TemplateModGameTest
         - main/.../TemplateMod
-      - Update LICENSE
+      - Update LICENSE with copyright year
  */
 
 public class TemplateMod implements ModInitializer {
