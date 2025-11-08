@@ -6,6 +6,13 @@ plugins {
 
 version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
+val fabricModules = arrayOf(
+    "fabric-lifecycle-events-v1",
+    "fabric-resource-loader-v0",
+    "fabric-content-registries-v0",
+    "fabric-data-generation-api-v1",
+    "fabric-gametest-api-v1"
+)
 
 repositories {
     /**
@@ -21,25 +28,16 @@ repositories {
 }
 
 dependencies {
-    /**
-     * Fetches only the required Fabric API modules to not waste time downloading all of them for each version.
-     * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
-     */
-    fun fapi(vararg modules: String) {
-        for (it in modules) modImplementation(fabricApi.module(it, property("deps.fabric_api") as String))
-    }
 
     minecraft("com.mojang:minecraft:${stonecutter.current.version}")
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 
-    fapi(
-        "fabric-lifecycle-events-v1",
-        "fabric-resource-loader-v0",
-        "fabric-content-registries-v0",
-        "fabric-data-generation-api-v1",
-        "fabric-gametest-api-v1"
-    )
+    /**
+     * Fetches only the required Fabric API modules to not waste time downloading all of them for each version.
+     * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
+     */
+    for (it in fabricModules) modImplementation(fabricApi.module(it, property("deps.fabric_api") as String))
 
     testImplementation("net.fabricmc:fabric-loader-junit:${property("deps.fabric_loader")}")
 
@@ -90,6 +88,18 @@ tasks {
         inputs.property("minecraft", project.property("mod.mc_dep"))
         inputs.property("fabric_loader", project.property("deps.fabric_loader"))
         inputs.property("java", if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17")
+        inputs.property("fabricModules", fabricModules)
+
+        val javaAndInjected =
+            StringBuilder(if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17").apply {
+                if (fabricModules.isNotEmpty()) {
+                    append('"')
+                    for (module in fabricModules) {
+                        append(",\n    \"$module\": \"*\"")
+                    }
+                    delete(length - 1, length)
+                }
+            }.toString()
 
         val props = mapOf(
             "id" to project.property("mod.id"),
@@ -97,7 +107,7 @@ tasks {
             "version" to project.property("mod.id"),
             "minecraft" to project.property("mod.mc_dep"),
             "fabric_loader" to project.property("deps.fabric_loader"),
-            "java" to if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17"
+            "java" to javaAndInjected
         )
 
         filesMatching("fabric.mod.json") { expand(props) }
