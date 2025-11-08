@@ -86,7 +86,7 @@ tasks {
     processResources {
         inputs.property("id", project.property("mod.id"))
         inputs.property("name", project.property("mod.name"))
-        inputs.property("version", project.property("mod.version"))
+        inputs.property("version", "${project.property("mod.version")}+${stonecutter.current.version}",)
         inputs.property("minecraft", project.property("mod.mc_dep"))
         inputs.property("fabric_loader", project.property("deps.fabric_loader"))
         inputs.property("java", if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17")
@@ -106,7 +106,7 @@ tasks {
         val props = mapOf(
             "id" to project.property("mod.id"),
             "name" to project.property("mod.id"),
-            "version" to project.property("mod.id"),
+            "version" to "${project.property("mod.version")}+${stonecutter.current.version}",
             "minecraft" to project.property("mod.mc_dep"),
             "fabric_loader" to project.property("deps.fabric_loader"),
             "java" to javaAndInjected
