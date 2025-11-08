@@ -120,6 +120,10 @@ tasks {
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 fabricApi {
@@ -133,10 +137,6 @@ fabricApi {
         modId = "${project.property("mod.id")}-test"
         eula = true
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 /*
