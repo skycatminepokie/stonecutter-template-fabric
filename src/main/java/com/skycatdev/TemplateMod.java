@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 /*
     TODO:
-     - Update package names (don't forget mixins.json)
+     - Update package names
         - client source set
         - gametest source set
         - main source set
@@ -34,6 +34,8 @@ import org.slf4j.LoggerFactory;
         - gametest/.../TemplateModGameTest
         - main/.../TemplateMod
       - Update LICENSE with copyright year
+      - Update settings.gradle.kts - rootProject.name
+      - Update mixins.json file names
  */
 
 public class TemplateMod implements ModInitializer {
