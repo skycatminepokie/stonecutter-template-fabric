@@ -1,6 +1,8 @@
+import org.gradle.kotlin.dsl.stonecutter
+
 plugins {
-    `maven-publish`
     id("fabric-loom")
+//    `maven-publish`
 //    id("me.modmuss50.mod-publish-plugin")
 }
 
@@ -13,11 +15,13 @@ val fabricModules = arrayOf(
     "fabric-data-generation-api-v1",
     "fabric-gametest-api-v1"
 )
-val javaVersion: Int =
-    if (stonecutter.current.parsed > "1.21.11") 25
-    else if (stonecutter.current.parsed >= "1.20.5") 21
-    else if (stonecutter.current.parsed >= "1.17") 17
-    else 8
+val requiredJava =
+    when {
+        stonecutter.current.parsed > "1.21.11" -> JavaVersion.VERSION_25
+        stonecutter.current.parsed >= "1.20.5" -> JavaVersion.VERSION_21
+        stonecutter.current.parsed >= "1.17" -> JavaVersion.VERSION_17
+        else -> JavaVersion.VERSION_1_8
+    }
 
 repositories {
     /**
@@ -77,9 +81,8 @@ loom {
 
 java {
     withSourcesJar()
-    val version = JavaVersion.toVersion(javaVersion)
-    targetCompatibility = version
-    sourceCompatibility = version
+    targetCompatibility = requiredJava
+    sourceCompatibility = requiredJava
 }
 
 tasks {
@@ -90,11 +93,11 @@ tasks {
         inputs.property("version", "${project.property("mod.version")}+${stonecutter.current.version}",)
         inputs.property("minecraft", project.property("mod.mc_dep"))
         inputs.property("fabric_loader", project.property("deps.fabric_loader"))
-        inputs.property("java", javaVersion)
+        inputs.property("java", requiredJava)
         inputs.property("fabricModules", fabricModules)
 
         val javaAndInjected =
-            StringBuilder(javaVersion.toString()).apply {
+            StringBuilder(requiredJava.majorVersion.toString()).apply {
                 if (fabricModules.isNotEmpty()) {
                     append('"')
                     for (module in fabricModules) {
