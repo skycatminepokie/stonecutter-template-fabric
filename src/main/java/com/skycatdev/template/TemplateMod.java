@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class TemplateMod implements ModInitializer {
     public static final String MOD_ID = "template";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final String VERSION = /*$ mod_version*/ "0.1.0";
+    public static final String VERSION = /*$ mod_version*/ "0.0.1";
     public static final String MINECRAFT = /*$ minecraft*/ "1.21.9";
 
     @Override
