@@ -1,4 +1,4 @@
 @NullMarked
-package com.skycatdev;
+package com.skycatdev.template.client.datagen;
 
 import org.jspecify.annotations.NullMarked;

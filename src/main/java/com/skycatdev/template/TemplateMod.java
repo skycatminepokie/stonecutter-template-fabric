@@ -1,4 +1,4 @@
-package com.skycatdev;
+package com.skycatdev.template;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.ResourceLocation;

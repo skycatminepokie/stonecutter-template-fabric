@@ -1,4 +1,4 @@
 @NullMarked
-package com.skycatdev.mixin.client;
+package com.skycatdev.template.mixin;
 
 import org.jspecify.annotations.NullMarked;

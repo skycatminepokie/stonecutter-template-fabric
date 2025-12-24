@@ -1,4 +1,4 @@
-package com.skycatdev;
+package com.skycatdev.template.client;
 
 import net.fabricmc.api.ClientModInitializer;
 

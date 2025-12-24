@@ -1,5 +1,3 @@
-import java.security.MessageDigest
-
 plugins {
     `maven-publish`
     id("fabric-loom")
@@ -85,6 +83,7 @@ java {
 tasks {
     processResources {
         inputs.property("id", project.property("mod.id"))
+        inputs.property("test_id", project.property("mod.test_id"))
         inputs.property("name", project.property("mod.name"))
         inputs.property("version", "${project.property("mod.version")}+${stonecutter.current.version}",)
         inputs.property("minecraft", project.property("mod.mc_dep"))
@@ -105,6 +104,7 @@ tasks {
 
         val props = mapOf(
             "id" to project.property("mod.id"),
+            "test_id" to project.property("mod.test_id"),
             "name" to project.property("mod.id"),
             "version" to "${project.property("mod.version")}+${stonecutter.current.version}",
             "minecraft" to project.property("mod.mc_dep"),
@@ -125,35 +125,6 @@ tasks {
 
     test {
         useJUnitPlatform()
-    }
-
-    // Allow exact copies of files across source sets
-    withType<Jar>().configureEach { // Partially written by an llm, be warned
-        duplicatesStrategy = DuplicatesStrategy.FAIL
-
-        doFirst {
-            val seenFiles = mutableMapOf<String, ByteArray>() // path to hash
-            val digest = MessageDigest.getInstance("SHA-1")
-
-            filesMatching("**/*") {
-                if (file.isFile) {
-                    val seenHash = seenFiles[relativePath.pathString]
-                    val hash = digest.digest(file.readBytes())
-                    if (seenHash != null) {
-                        if (seenHash.contentEquals(hash)) { // Exact duplicate
-                            exclude()
-                        } else { // Different duplicate
-                            throw DuplicateFileCopyingException("Duplicate file with different content at '$path'")
-                        }
-                    } else { // File we haven't seen
-                        seenFiles[relativePath.pathString] = hash
-                        include()
-                    }
-                } else { // Folder or something else
-                    include()
-                }
-            }
-        }
     }
 }
 
