@@ -86,7 +86,7 @@ java {
 }
 
 tasks {
-    processResources {
+    withType<ProcessResources>().configureEach {
         inputs.property("id", project.property("mod.id"))
         inputs.property("test_id", project.property("mod.test_id"))
         inputs.property("name", project.property("mod.name"))
@@ -118,6 +118,9 @@ tasks {
         )
 
         filesMatching("fabric.mod.json") { expand(props) }
+
+        val mixinJava = "JAVA_${requiredJava.majorVersion}"
+        filesMatching("*.mixins.json") { expand("java" to mixinJava) }
     }
 
     // Builds the version into a shared folder in `build/libs/${mod version}/`
