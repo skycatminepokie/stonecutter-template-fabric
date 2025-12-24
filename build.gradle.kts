@@ -13,6 +13,11 @@ val fabricModules = arrayOf(
     "fabric-data-generation-api-v1",
     "fabric-gametest-api-v1"
 )
+val javaVersion: Int =
+    if (stonecutter.current.parsed > "1.21.11") 25
+    else if (stonecutter.current.parsed >= "1.20.5") 21
+    else if (stonecutter.current.parsed >= "1.17") 17
+    else 8
 
 repositories {
     /**
@@ -72,12 +77,9 @@ loom {
 
 java {
     withSourcesJar()
-    val requiresJava21: Boolean = stonecutter.eval(stonecutter.current.version, ">=1.20.5")
-    val javaVersion: JavaVersion =
-        if (requiresJava21) JavaVersion.VERSION_21
-        else JavaVersion.VERSION_17
-    targetCompatibility = javaVersion
-    sourceCompatibility = javaVersion
+    val version = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = version
+    sourceCompatibility = version
 }
 
 tasks {
@@ -88,11 +90,11 @@ tasks {
         inputs.property("version", "${project.property("mod.version")}+${stonecutter.current.version}",)
         inputs.property("minecraft", project.property("mod.mc_dep"))
         inputs.property("fabric_loader", project.property("deps.fabric_loader"))
-        inputs.property("java", if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17")
+        inputs.property("java", javaVersion)
         inputs.property("fabricModules", fabricModules)
 
         val javaAndInjected =
-            StringBuilder(if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) "21" else "17").apply {
+            StringBuilder(javaVersion.toString()).apply {
                 if (fabricModules.isNotEmpty()) {
                     append('"')
                     for (module in fabricModules) {

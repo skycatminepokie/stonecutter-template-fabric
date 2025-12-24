@@ -8,8 +8,10 @@
     "skycatminepokie"
   ],
   "contact": {
+    "sources": "",
+    "issues": ""
   },
-  "license": "MIT-0",
+  "license": "MIT",
   "icon": "assets/template/icon.png",
   "environment": "*",
   "entrypoints": {

@@ -33,9 +33,10 @@ import org.slf4j.LoggerFactory;
         - client/.../TemplateModClient
         - gametest/.../TemplateModGameTest
         - main/.../TemplateMod
-      - Update LICENSE with copyright year
+      - Update LICENSE with copyright year and owner
       - Update settings.gradle.kts - rootProject.name
       - Update mixins.json file names
+      - Clear README
  */
 
 public class TemplateMod implements ModInitializer {
